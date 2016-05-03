@@ -37,7 +37,7 @@ public class ScanActivity extends Activity {
         miband = new MiBand(this);
 
         final ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.item, new ArrayList<String>());
-        final  BluetoothAdapter.LeScanCallback scanCallback = new BluetoothAdapter.LeScanCallback() {
+        final BluetoothAdapter.LeScanCallback scanCallback = new BluetoothAdapter.LeScanCallback() {
             @Override
             public void onLeScan(BluetoothDevice device, int rssi, byte[] bytes) {
                 Log.d(TAG,
