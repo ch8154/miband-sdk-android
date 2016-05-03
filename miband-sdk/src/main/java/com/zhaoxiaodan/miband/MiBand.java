@@ -34,32 +34,34 @@ public class MiBand {
         this.io = new BluetoothIO();
     }
 
-    public static void startScan(ScanCallback callback) {
+    public static void startScan(BluetoothAdapter.LeScanCallback callback) {
         BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
         if (null == adapter) {
             Log.e(TAG, "BluetoothAdapter is null");
             return;
         }
-        BluetoothLeScanner scanner = adapter.getBluetoothLeScanner();
-        if (null == scanner) {
-            Log.e(TAG, "BluetoothLeScanner is null");
-            return;
-        }
-        scanner.startScan(callback);
+        adapter.startLeScan(callback);
+//        BluetoothLeScanner scanner = adapter.getBluetoothLeScanner();
+//        if (null == scanner) {
+//            Log.e(TAG, "BluetoothLeScanner is null");
+//            return;
+//        }
+//        scanner.startScan(callback);
     }
 
-    public static void stopScan(ScanCallback callback) {
+    public static void stopScan(BluetoothAdapter.LeScanCallback callback) {
         BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
         if (null == adapter) {
             Log.e(TAG, "BluetoothAdapter is null");
             return;
         }
-        BluetoothLeScanner scanner = adapter.getBluetoothLeScanner();
-        if (null == scanner) {
-            Log.e(TAG, "BluetoothLeScanner is null");
-            return;
-        }
-        scanner.stopScan(callback);
+        adapter.stopLeScan(callback);
+//        BluetoothLeScanner scanner = adapter.getBluetoothLeScanner();
+//        if (null == scanner) {
+//            Log.e(TAG, "BluetoothLeScanner is null");
+//            return;
+//        }
+//        scanner.stopScan(callback);
     }
 
     /**

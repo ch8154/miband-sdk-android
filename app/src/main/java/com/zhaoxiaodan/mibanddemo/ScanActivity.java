@@ -1,6 +1,7 @@
 package com.zhaoxiaodan.mibanddemo;
 
 import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
@@ -36,26 +37,42 @@ public class ScanActivity extends Activity {
         miband = new MiBand(this);
 
         final ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.item, new ArrayList<String>());
-
-        final ScanCallback scanCallback = new ScanCallback() {
+        final  BluetoothAdapter.LeScanCallback scanCallback = new BluetoothAdapter.LeScanCallback() {
             @Override
-            public void onScanResult(int callbackType, ScanResult result) {
-                BluetoothDevice device = result.getDevice();
+            public void onLeScan(BluetoothDevice device, int rssi, byte[] bytes) {
                 Log.d(TAG,
                         "找到附近的蓝牙设备: name:" + device.getName() + ",uuid:"
                                 + device.getUuids() + ",add:"
                                 + device.getAddress() + ",type:"
                                 + device.getType() + ",bondState:"
-                                + device.getBondState() + ",rssi:" + result.getRssi());
+                                + device.getBondState() + ",rssi:" + rssi);
 
                 String item = device.getName() + "|" + device.getAddress();
                 if (!devices.containsKey(item)) {
                     devices.put(item, device);
                     adapter.add(item);
                 }
-
             }
         };
+//        final ScanCallback scanCallback = new ScanCallback() {
+//            @Override
+//            public void onScanResult(int callbackType, ScanResult result) {
+//                BluetoothDevice device = result.getDevice();
+//                Log.d(TAG,
+//                        "找到附近的蓝牙设备: name:" + device.getName() + ",uuid:"
+//                                + device.getUuids() + ",add:"
+//                                + device.getAddress() + ",type:"
+//                                + device.getType() + ",bondState:"
+//                                + device.getBondState() + ",rssi:" + result.getRssi());
+//
+//                String item = device.getName() + "|" + device.getAddress();
+//                if (!devices.containsKey(item)) {
+//                    devices.put(item, device);
+//                    adapter.add(item);
+//                }
+//
+//            }
+//        };
 
 
         ((Button) findViewById(R.id.starScanButton)).setOnClickListener(new View.OnClickListener() {
